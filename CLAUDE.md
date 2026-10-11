@@ -52,6 +52,9 @@ Next.js 15 (App Router) + React 19 + Tailwind CSS 3. See README.md for the archi
 - **Paths:** root-relative asset paths and internal links go through `withBase()` (`lib/basePath.js`).
 
 ## Known issues
-- **Contact form:** `handleSubmit` in `components/sections/Contact.jsx` isn't wired to a backend yet.
+- **Contact form:** submissions go to Web3Forms (`WEB3FORMS_KEY` in `components/sections/Contact.jsx`),
+  which emails them to the inbox the key was created for (free tier: 250/month). The key is public by
+  design. A hidden `botcheck` honeypot drops bot submissions; on failure the form shows an error with
+  `info@spezartech.com` as a fallback.
 
 The build otherwise passes cleanly. Both routes, `/` and `/contact`, are prerendered as static pages.

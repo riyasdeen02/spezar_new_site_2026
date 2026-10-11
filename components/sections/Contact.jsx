@@ -22,6 +22,11 @@ const locations = [
   { title: "Europe", place: "Finland" },
 ];
 
+// Submissions go to Web3Forms, which emails them to the inbox this key was created for.
+// The key is meant to be public (it can only send to that inbox), so it's fine in client code.
+const WEB3FORMS_KEY = "bd7a0764-a897-4436-a340-0aa8d4088659";
+const CONTACT_EMAIL = "info@spezartech.com";
+
 const initialForm = {
   name: "",
   email: "",
@@ -34,6 +39,8 @@ export default function Contact() {
   const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
 
   const update = (field) => (e) => {
     setForm((f) => ({ ...f, [field]: e.target.value }));
@@ -52,14 +59,47 @@ export default function Contact() {
     return next;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    if (sending) return;
     const next = validate();
     setErrors(next);
-    if (Object.keys(next).length === 0) {
-      // No backend yet — surface a confirmation and reset.
+    if (Object.keys(next).length > 0) return;
+
+    // Hidden honeypot: real visitors never see or fill it, bots usually do.
+    if (e.currentTarget.elements.botcheck?.checked) {
       setSubmitted(true);
       setForm(initialForm);
+      return;
+    }
+
+    setSending(true);
+    setSendError("");
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `New enquiry from spezartech.com: ${form.need}`,
+          from_name: "Spezar Tech website",
+          replyto: form.email.trim(),
+          name: form.name.trim(),
+          email: form.email.trim(),
+          phone: form.phone.trim() || "Not given",
+          need: form.need,
+          message: form.summary.trim(),
+          page: typeof window !== "undefined" ? window.location.href : "",
+        }),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.success) throw new Error(result.message || `HTTP ${response.status}`);
+      setSubmitted(true);
+      setForm(initialForm);
+    } catch {
+      setSendError(`Sorry, your message couldn't be sent. Please try again, or email us at ${CONTACT_EMAIL}.`);
+    } finally {
+      setSending(false);
     }
   };
 
@@ -253,13 +293,22 @@ export default function Contact() {
                 )}
               </div>
 
+              {/* Honeypot for bots; hidden from people and screen readers */}
+              <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+
               <div className="pt-1 flex flex-col gap-2">
+                {sendError && (
+                  <p role="alert" className="rounded-lg border border-error/40 bg-error/10 px-3 py-2 text-sm text-error">
+                    {sendError}
+                  </p>
+                )}
                 <button
                   type="submit"
-                  className="w-full py-2.5 px-4 rounded-xl bg-primary text-on-primary-fixed font-body-md font-semibold hover:bg-secondary transition-colors flex items-center justify-center gap-2 shadow-md"
+                  disabled={sending}
+                  className="w-full py-2.5 px-4 rounded-xl bg-primary text-on-primary-fixed font-body-md font-semibold hover:bg-secondary transition-colors flex items-center justify-center gap-2 shadow-md disabled:opacity-70 disabled:cursor-wait"
                 >
-                  <span>Send message</span>
-                  <Icon name="arrow_forward" className="text-[18px]" />
+                  <span>{sending ? "Sending…" : "Send message"}</span>
+                  {!sending && <Icon name="arrow_forward" className="text-[18px]" />}
                 </button>
                 <p className="text-xs text-on-surface-variant/80 text-center">
                   Happy to sign an NDA before you share anything sensitive.
