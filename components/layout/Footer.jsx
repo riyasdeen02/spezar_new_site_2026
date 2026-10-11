@@ -1,6 +1,7 @@
 import Icon from "@/components/ui/Icon";
 import BrandLogo from "@/components/ui/BrandLogo";
 import { socialLinks, foundedYear } from "@/data/content";
+import { withBase } from "@/lib/basePath";
 
 const directory = [
   { label: "Capabilities", href: "/#capabilities" },
@@ -37,7 +38,7 @@ export default function Footer() {
                     aria-label={link.label}
                     className="footer-social"
                   >
-                    <span style={{ maskImage: `url(${link.icon})`, WebkitMaskImage: `url(${link.icon})` }} />
+                    <span style={{ maskImage: `url(${withBase(link.icon)})`, WebkitMaskImage: `url(${withBase(link.icon)})` }} />
                   </a>
                 ))}
               </div>
@@ -83,7 +84,7 @@ export default function Footer() {
               {directory.map((item) => (
                 <a
                   key={item.href}
-                  href={item.href}
+                  href={withBase(item.href)}
                   className="font-body-sm text-body-sm text-on-surface-variant hover:text-on-surface transition-colors"
                 >
                   {item.label}

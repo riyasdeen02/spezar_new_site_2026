@@ -1,4 +1,5 @@
 import Icon from "@/components/ui/Icon";
+import { withBase } from "@/lib/basePath";
 
 // Closing call-to-action shown above the footer.
 export default function StartProjectMarquee() {
@@ -20,7 +21,7 @@ export default function StartProjectMarquee() {
         </div>
 
         <div className="start-project-actions">
-          <a href="/contact" className="start-project-button group">
+          <a href={withBase("/contact")} className="start-project-button group">
             Start your project
             <Icon name="arrow_forward" className="text-[18px] transition-transform group-hover:translate-x-1" />
           </a>

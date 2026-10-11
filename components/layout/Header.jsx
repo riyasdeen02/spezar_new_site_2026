@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import Icon from "@/components/ui/Icon";
 import BrandLogo from "@/components/ui/BrandLogo";
 import { navLinks } from "@/data/nav";
+import { withBase } from "@/lib/basePath";
 
 const sectionIds = navLinks
   .filter((link) => link.href.startsWith("/#"))
@@ -84,7 +85,7 @@ export default function Header() {
           scrolled ? "h-16" : "h-20"
         }`}
       >
-        <a href="/#top" aria-label="Spezar Tech home" className="flex items-center focus:outline-none group">
+        <a href={withBase("/#top")} aria-label="Spezar Tech home" className="flex items-center focus:outline-none group">
           <BrandLogo className={`header-brand-logo ${scrolled ? "is-compact" : ""}`} />
         </a>
 
@@ -94,7 +95,7 @@ export default function Header() {
             return (
               <a
                 key={link.href}
-                href={link.href}
+                href={withBase(link.href)}
                 aria-current={active ? "location" : undefined}
                 className={`header-nav-link ${active ? "is-active text-on-surface" : "text-outline"} hover:text-primary transition-colors py-1`}
               >
@@ -115,7 +116,7 @@ export default function Header() {
             <Icon name={lightTheme ? "dark_mode" : "light_mode"} className="text-[18px]" />
           </button>
           <a
-            href="/contact"
+            href={withBase("/contact")}
             className="inline-flex items-center justify-center px-4 sm:px-5 py-2 rounded-full bg-surface-container-high/90 hover:bg-surface-bright text-on-surface border border-outline-variant/40 hover:border-outline text-[13px] font-body-sm font-medium tracking-wide transition-all shadow-sm"
           >
             Get started
@@ -143,7 +144,7 @@ export default function Header() {
           {navLinks.map((link) => (
             <a
               key={link.href}
-              href={link.href}
+              href={withBase(link.href)}
               onClick={() => setOpen(false)}
               aria-current={isActive(link.href) ? "location" : undefined}
               className={`py-3 ${

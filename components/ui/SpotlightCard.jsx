@@ -3,6 +3,7 @@
 import useSpotlight from "@/hooks/useSpotlight";
 import Image from "next/image";
 import { heroImage } from "@/data/content";
+import { withBase } from "@/lib/basePath";
 
 /**
  * Interactive card with a mouse-tracking radial glow.
@@ -28,7 +29,7 @@ export default function SpotlightCard({
       {image && (
         <>
           <Image
-            src={image}
+            src={withBase(image)}
             alt=""
             aria-hidden="true"
             fill

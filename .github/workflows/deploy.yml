@@ -41,10 +41,17 @@ jobs:
           key: nextjs-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('app/**', 'components/**', 'data/**', 'hooks/**') }}
           restore-keys: nextjs-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
 
+      # Tells the build which sub-path Pages serves from: "" once spezartech.com is attached,
+      # "/spezar_new_site_2026" on the github.io preview. Skipped for PRs (builds for the root).
+      - id: pages
+        uses: actions/configure-pages@v5
+        if: github.event_name != 'pull_request'
+
       # `next build` also runs lint and type checks; output: "export" writes the site to ./out
       - run: npm run build
         env:
           NEXT_TELEMETRY_DISABLED: 1
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
 
       # Fail early if the custom-domain file is missing, otherwise Pages would drop spezartech.com.
       - name: Check export
@@ -53,9 +60,6 @@ jobs:
           test -f out/contact/index.html || { echo "out/contact/index.html missing"; exit 1; }
           grep -qx "spezartech.com" out/CNAME || { echo "out/CNAME must contain spezartech.com"; exit 1; }
           touch out/.nojekyll
-
-      - uses: actions/configure-pages@v5
-        if: github.event_name != 'pull_request'
 
       - uses: actions/upload-pages-artifact@v3
         if: github.event_name != 'pull_request'

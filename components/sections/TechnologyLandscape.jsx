@@ -1,5 +1,6 @@
 import Icon from "@/components/ui/Icon";
 import SectionHeading from "@/components/ui/SectionHeading";
+import { withBase } from "@/lib/basePath";
 
 // Hand-placed scatter points (centre x / y in %), shared by both clouds.
 // The software cloud uses them rotated 180° so the two groups look different.
@@ -129,7 +130,7 @@ export default function TechnologyLandscape() {
                         {(technology.darkFile ? ["light", "dark"] : ["any"]).map((variant) => (
                           <img
                             key={variant}
-                            src={`/technology-logos/${variant === "dark" ? technology.darkFile : technology.file}`}
+                            src={withBase(`/technology-logos/${variant === "dark" ? technology.darkFile : technology.file}`)}
                             alt={technology.name}
                             className={[
                               "technology-bubble-logo",

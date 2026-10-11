@@ -1,6 +1,7 @@
 import Icon from "@/components/ui/Icon";
 import HeroExplodedView from "@/components/sections/HeroExplodedView";
 import { foundedYear } from "@/data/content";
+import { withBase } from "@/lib/basePath";
 
 const stats = [
   { value: `${new Date().getFullYear() - foundedYear}+ years`, label: `Building hardware since ${foundedYear}` },
@@ -27,7 +28,7 @@ export default function Hero() {
             </p>
 
             <div className="flex flex-wrap items-center gap-3 pt-1">
-              <a href="/contact" className="hero-primary-button group inline-flex items-center gap-3 rounded-full px-6 py-3.5 text-sm font-medium text-white transition-all">
+              <a href={withBase("/contact")} className="hero-primary-button group inline-flex items-center gap-3 rounded-full px-6 py-3.5 text-sm font-medium text-white transition-all">
                 Start a project
                 <Icon name="arrow_forward" className="text-[17px] transition-transform group-hover:translate-x-1" />
               </a>
