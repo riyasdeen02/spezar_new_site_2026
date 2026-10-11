@@ -1,7 +1,7 @@
 import Image from "next/image";
 // Trimmed versions of media/spezar_logo_*.png (the originals carry a lot of transparent padding).
-import whiteLogo from "@/media/logo-white.png";
-import darkLogo from "@/media/logo-dark.png";
+import whiteLogo from "@/media/logo-white.webp";
+import darkLogo from "@/media/logo-dark.webp";
 
 export default function BrandLogo({ className = "" }) {
   return (

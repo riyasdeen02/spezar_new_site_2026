@@ -5,7 +5,7 @@ import Image from "next/image";
 import Icon from "@/components/ui/Icon";
 import SpotlightCard from "@/components/ui/SpotlightCard";
 import { cardImages } from "@/data/content";
-import contactImage from "@/media/contact.png";
+import contactImage from "@/media/contact.webp";
 
 const needOptions = [
   "Full prototype (hardware, firmware and CAD)",

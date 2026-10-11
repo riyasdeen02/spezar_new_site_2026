@@ -1,7 +1,7 @@
 import Image from "next/image";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { capabilities } from "@/data/content";
-import benchImage from "@/media/capabilities-bench.jpg";
+import benchImage from "@/media/capabilities-bench.webp";
 
 export default function Capabilities() {
   return (

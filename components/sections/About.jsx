@@ -2,7 +2,7 @@ import Image from "next/image";
 import Icon from "@/components/ui/Icon";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { aboutFacts } from "@/data/content";
-import workshopImage from "@/media/IMG_2149.jpg";
+import workshopImage from "@/media/IMG_2149.webp";
 
 const highlights = [
   { icon: "groups", text: "Focused on early-stage startups, innovators, and researchers building their first products" },

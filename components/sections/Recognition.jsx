@@ -2,15 +2,15 @@ import Icon from "@/components/ui/Icon";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { awards } from "@/data/content";
 import Image from "next/image";
-import tnsiAwardImage from "@/media/tnsi.jpg";
-import spaceChallengeImage from "@/media/isc.jpg";
+import tnsiAwardImage from "@/media/tnsi.webp";
+import spaceChallengeImage from "@/media/isc.webp";
 import gseaLogo from "@/logo/GSEA-type-treatment_website-2.svg";
-import startupIndiaLogo from "@/logo/Asset-1@3x.png";
-import sastraLogo from "@/logo/sastralogo.png";
-import ediiLogo from "@/logo/TEAM SPEZAR-3.png";
-import fireLogo from "@/logo/spez sat-3.png";
-import startupTnLogo from "@/logo/spez sat-4.png";
-import tnsiLogo from "@/logo/tnsi_logo_web.png";
+import startupIndiaLogo from "@/logo/Asset-1@3x.webp";
+import sastraLogo from "@/logo/sastralogo.webp";
+import ediiLogo from "@/logo/TEAM SPEZAR-3.webp";
+import fireLogo from "@/logo/spez sat-3.webp";
+import startupTnLogo from "@/logo/spez sat-4.webp";
+import tnsiLogo from "@/logo/tnsi_logo_web.webp";
 
 const organizations = [
   { name: "Global Student Entrepreneur Awards", image: gseaLogo },

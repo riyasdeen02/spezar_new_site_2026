@@ -3,14 +3,14 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import { industries } from "@/data/content";
 
 const industryImages = {
-  "Consumer IoT": "/industry/consumeriot.png",
-  MedTech: "/industry/medtech.png",
-  "Oil & Gas": "/industry/oilgas.png",
-  "Energy & Utilities": "/industry/energy.png",
-  "Smart Agriculture": "/industry/agri.png",
-  "Industrial Systems": "/industry/industrialsys.png",
-  "Remote Solutions": "/industry/remotesol.png",
-  "Assistive Tech": "/industry/assistivetech.png",
+  "Consumer IoT": "/industry/consumeriot.webp",
+  MedTech: "/industry/medtech.webp",
+  "Oil & Gas": "/industry/oilgas.webp",
+  "Energy & Utilities": "/industry/energy.webp",
+  "Smart Agriculture": "/industry/agri.webp",
+  "Industrial Systems": "/industry/industrialsys.webp",
+  "Remote Solutions": "/industry/remotesol.webp",
+  "Assistive Tech": "/industry/assistivetech.webp",
 };
 
 const industryDescriptions = {

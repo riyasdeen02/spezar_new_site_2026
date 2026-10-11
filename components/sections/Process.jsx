@@ -3,7 +3,7 @@ import Icon from "@/components/ui/Icon";
 import SpotlightCard from "@/components/ui/SpotlightCard";
 import SectionHeading from "@/components/ui/SectionHeading";
 import { processStages } from "@/data/content";
-import whatWeDoImage from "@/media/whatwedo.png";
+import whatWeDoImage from "@/media/whatwedo.webp";
 
 export default function Process() {
   return (
