@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+  <defs>
+    <radialGradient id="bg" cx="55%" cy="45%" r="75%">
+      <stop offset="0" stop-color="#0d2236"/>
+      <stop offset=".6" stop-color="#081422"/>
+      <stop offset="1" stop-color="#04080f"/>
+    </radialGradient>
+    <linearGradient id="board" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0f3a4a"/>
+      <stop offset="1" stop-color="#082430"/>
+    </linearGradient>
+    <linearGradient id="chip" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#1d2733"/>
+      <stop offset="1" stop-color="#0b1118"/>
+    </linearGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+    <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="2" cy="2" r="1.4" fill="#2a5a78" opacity=".35"/>
+    </pattern>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#dots)"/>
+
+  <!-- board -->
+  <g transform="rotate(-8 800 500)">
+    <rect x="260" y="200" width="1080" height="600" rx="28" fill="url(#board)" stroke="#1f6f86" stroke-width="3"/>
+    <circle cx="310" cy="250" r="16" fill="#04080f" stroke="#c9a24a" stroke-width="6"/>
+    <circle cx="1290" cy="250" r="16" fill="#04080f" stroke="#c9a24a" stroke-width="6"/>
+    <circle cx="310" cy="750" r="16" fill="#04080f" stroke="#c9a24a" stroke-width="6"/>
+    <circle cx="1290" cy="750" r="16" fill="#04080f" stroke="#c9a24a" stroke-width="6"/>
+
+    <!-- traces -->
+    <g fill="none" stroke="#c9a24a" stroke-width="4" stroke-linecap="round" opacity=".75">
+      <path d="M560 420 H440 V320 H360"/>
+      <path d="M560 460 H420 V560 H360"/>
+      <path d="M560 500 H460 V680 H520"/>
+      <path d="M840 400 V300 H980 V260"/>
+      <path d="M800 400 V330 H700 V260"/>
+      <path d="M880 560 V660 H1060 V720"/>
+      <path d="M760 560 V700 H640"/>
+      <path d="M920 460 H1080 V380 H1180"/>
+      <path d="M920 500 H1120 V560 H1220"/>
+    </g>
+    <g fill="#c9a24a">
+      <circle cx="360" cy="320" r="9"/><circle cx="360" cy="560" r="9"/><circle cx="520" cy="680" r="9"/>
+      <circle cx="980" cy="260" r="9"/><circle cx="700" cy="260" r="9"/><circle cx="1060" cy="720" r="9"/>
+      <circle cx="640" cy="700" r="9"/><circle cx="1180" cy="380" r="9"/><circle cx="1220" cy="560" r="9"/>
+    </g>
+
+    <!-- MCU -->
+    <rect x="560" y="380" width="360" height="200" rx="10" fill="url(#chip)" stroke="#2f4152" stroke-width="2"/>
+    <g fill="#9fb3c4">
+      <rect x="590" y="366" width="10" height="14"/><rect x="625" y="366" width="10" height="14"/><rect x="660" y="366" width="10" height="14"/><rect x="695" y="366" width="10" height="14"/><rect x="730" y="366" width="10" height="14"/><rect x="765" y="366" width="10" height="14"/><rect x="800" y="366" width="10" height="14"/><rect x="835" y="366" width="10" height="14"/><rect x="870" y="366" width="10" height="14"/>
+      <rect x="590" y="580" width="10" height="14"/><rect x="625" y="580" width="10" height="14"/><rect x="660" y="580" width="10" height="14"/><rect x="695" y="580" width="10" height="14"/><rect x="730" y="580" width="10" height="14"/><rect x="765" y="580" width="10" height="14"/><rect x="800" y="580" width="10" height="14"/><rect x="835" y="580" width="10" height="14"/><rect x="870" y="580" width="10" height="14"/>
+    </g>
+    <circle cx="590" cy="410" r="7" fill="#2f4152"/>
+    <text x="740" y="488" text-anchor="middle" font-family="monospace" font-size="30" fill="#5d7a92" letter-spacing="4">SPZ-MCU</text>
+    <text x="740" y="526" text-anchor="middle" font-family="monospace" font-size="18" fill="#3d566b" letter-spacing="3">ARM CORTEX-M</text>
+
+    <!-- pin header -->
+    <rect x="380" y="720" width="440" height="44" rx="4" fill="#0b1118"/>
+    <g fill="#c9a24a">
+      <rect x="398" y="734" width="16" height="16"/><rect x="438" y="734" width="16" height="16"/><rect x="478" y="734" width="16" height="16"/><rect x="518" y="734" width="16" height="16"/><rect x="558" y="734" width="16" height="16"/><rect x="598" y="734" width="16" height="16"/><rect x="638" y="734" width="16" height="16"/><rect x="678" y="734" width="16" height="16"/><rect x="718" y="734" width="16" height="16"/><rect x="758" y="734" width="16" height="16"/>
+    </g>
+
+    <!-- small parts -->
+    <g fill="#1d2733" stroke="#2f4152" stroke-width="2">
+      <rect x="1000" y="620" width="140" height="80" rx="6"/>
+      <rect x="1120" y="420" width="60" height="30" rx="3"/>
+      <rect x="1120" y="470" width="60" height="30" rx="3"/>
+      <rect x="440" y="260" width="90" height="50" rx="4"/>
+    </g>
+    <g fill="#b9c6d2"><rect x="1120" y="420" width="12" height="30"/><rect x="1168" y="420" width="12" height="30"/><rect x="1120" y="470" width="12" height="30"/><rect x="1168" y="470" width="12" height="30"/></g>
+
+    <!-- LEDs -->
+    <circle cx="1230" cy="300" r="26" fill="#2ee6ff" filter="url(#glow)" opacity=".9"/>
+    <circle cx="1230" cy="300" r="10" fill="#d9fbff"/>
+    <circle cx="1230" cy="360" r="22" fill="#5cff9d" filter="url(#glow)" opacity=".8"/>
+    <circle cx="1230" cy="360" r="8" fill="#e6ffef"/>
+  </g>
+
+  <!-- ambient glow -->
+  <circle cx="1200" cy="250" r="260" fill="#1aa6d9" opacity=".08" filter="url(#glow)"/>
+</svg>

@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#071526"/>
+      <stop offset="1" stop-color="#030810"/>
+    </linearGradient>
+    <linearGradient id="metal" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#2b3a4a"/>
+      <stop offset=".5" stop-color="#5a7186"/>
+      <stop offset="1" stop-color="#22303d"/>
+    </linearGradient>
+    <linearGradient id="floor" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0b2a3c"/>
+      <stop offset="1" stop-color="#04101a"/>
+    </linearGradient>
+    <radialGradient id="spot" cx="50%" cy="0%" r="80%">
+      <stop offset="0" stop-color="#40d4ff" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#40d4ff" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <polygon points="520,0 1080,0 1400,1000 200,1000" fill="url(#spot)"/>
+
+  <!-- floor grid -->
+  <polygon points="0,700 1600,700 1600,1000 0,1000" fill="url(#floor)"/>
+  <g stroke="#1c6a8a" stroke-width="2" opacity=".45">
+    <line x1="0" y1="700" x2="1600" y2="700"/>
+    <line x1="0" y1="740" x2="1600" y2="740"/>
+    <line x1="0" y1="795" x2="1600" y2="795"/>
+    <line x1="0" y1="870" x2="1600" y2="870"/>
+    <line x1="0" y1="970" x2="1600" y2="970"/>
+    <line x1="800" y1="700" x2="800" y2="1000"/>
+    <line x1="650" y1="700" x2="350" y2="1000"/>
+    <line x1="950" y1="700" x2="1250" y2="1000"/>
+    <line x1="500" y1="700" x2="-100" y2="1000"/>
+    <line x1="1100" y1="700" x2="1700" y2="1000"/>
+  </g>
+
+  <!-- test bed -->
+  <polygon points="840,690 1300,690 1380,780 760,780" fill="#0f3344" stroke="#2a8fb3" stroke-width="3"/>
+  <rect x="920" y="700" width="200" height="50" rx="4" fill="#123f2e" stroke="#2fbf7a" stroke-width="2"/>
+  <g fill="#c9a24a"><rect x="940" y="712" width="30" height="26"/><rect x="990" y="712" width="50" height="26"/><rect x="1060" y="712" width="40" height="26"/></g>
+  <rect x="1170" y="705" width="90" height="40" rx="4" fill="#1d2733"/>
+
+  <!-- robot arm -->
+  <g>
+    <!-- base -->
+    <ellipse cx="480" cy="760" rx="170" ry="34" fill="#0b1520"/>
+    <rect x="370" y="660" width="220" height="100" rx="18" fill="url(#metal)"/>
+    <rect x="370" y="690" width="220" height="10" fill="#40d4ff" opacity=".7"/>
+    <!-- lower link -->
+    <g transform="rotate(38 480 650)">
+      <rect x="440" y="300" width="80" height="360" rx="36" fill="url(#metal)"/>
+      <rect x="470" y="340" width="20" height="280" rx="10" fill="#14202b"/>
+    </g>
+    <circle cx="480" cy="650" r="58" fill="#3a4c5e" stroke="#7d93a8" stroke-width="4"/>
+    <circle cx="480" cy="650" r="20" fill="#40d4ff" filter="url(#glow)"/>
+    <circle cx="480" cy="650" r="10" fill="#d6f6ff"/>
+    <!-- elbow at approx (700,370) -->
+    <g transform="rotate(-36 700 370)">
+      <rect x="670" y="340" width="60" height="330" rx="28" fill="url(#metal)"/>
+      <rect x="692" y="380" width="16" height="250" rx="8" fill="#14202b"/>
+    </g>
+    <circle cx="700" cy="370" r="50" fill="#3a4c5e" stroke="#7d93a8" stroke-width="4"/>
+    <circle cx="700" cy="370" r="16" fill="#40d4ff" filter="url(#glow)"/>
+    <circle cx="700" cy="370" r="8" fill="#d6f6ff"/>
+    <!-- wrist at approx (875,650) -->
+    <circle cx="875" cy="640" r="36" fill="#3a4c5e" stroke="#7d93a8" stroke-width="4"/>
+    <rect x="860" y="660" width="30" height="34" fill="#55697d"/>
+    <path d="M846 694 h16 v26 l-10 10 z" fill="#8aa1b6"/>
+    <path d="M904 694 h-16 v26 l10 10 z" fill="#8aa1b6"/>
+    <circle cx="875" cy="640" r="11" fill="#5cff9d" filter="url(#glow)"/>
+  </g>
+
+  <!-- telemetry overlay -->
+  <g font-family="monospace" fill="#5fc9ee" opacity=".75">
+    <text x="1060" y="200" font-size="22" letter-spacing="3">AXIS 1  +038.20°</text>
+    <text x="1060" y="236" font-size="22" letter-spacing="3">AXIS 2  -032.75°</text>
+    <text x="1060" y="272" font-size="22" letter-spacing="3">AXIS 3  +012.04°</text>
+    <text x="1060" y="320" font-size="18" letter-spacing="3" fill="#5cff9d">LOOP 2.4 ms  ● OK</text>
+  </g>
+  <path d="M1060 380 l40 -20 l40 30 l40 -50 l40 40 l40 -24 l40 14 l40 -30" fill="none" stroke="#40d4ff" stroke-width="3" opacity=".6"/>
+</svg>
