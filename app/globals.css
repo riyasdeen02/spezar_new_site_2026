@@ -725,7 +725,7 @@ html.light .capability-title-item:first-child { border-color: rgba(70,98,140,.15
 html.light .capability-title-item > span { color: #527db3; }
 html.light .capability-image-frame { border-color: rgba(70,98,140,.2); box-shadow: 0 24px 55px -38px rgba(36,63,103,.35); }
 @media (min-width: 1024px) {
-  .capability-image-frame { height: 39rem; position: sticky; top: 6rem; }
+  .capability-image-frame { height: 39rem; }
 }
 html.light .technology-logo-source-invert { filter: none; }
 
