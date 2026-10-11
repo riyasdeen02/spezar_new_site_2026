@@ -9,7 +9,7 @@ export default function Capabilities() {
       id="capabilities"
       className="w-full bg-surface/80 py-space-xl lg:py-24 px-margin-mobile lg:px-margin relative"
     >
-      <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-stretch relative z-10">
+      <div className="max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-start relative z-10">
         <div className="lg:col-span-5 flex flex-col justify-center gap-space-lg">
           <div className="reveal">
             <SectionHeading

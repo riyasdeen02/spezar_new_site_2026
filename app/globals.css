@@ -663,10 +663,10 @@ html.light .technology-bubble-logo { filter: none; }
   color: var(--c-on-surface);
   font: 500 clamp(1.05rem, 1.25vw, 1.25rem)/1.25 var(--font-geist), sans-serif;
   letter-spacing: -.015em;
-  transition: color .2s ease, transform .2s ease;
+  transition: color .2s ease;
 }
 .capability-title-item:hover h3,
-.capability-title-item:focus-visible h3 { color: var(--c-primary); transform: translateX(3px); }
+.capability-title-item:focus-visible h3 { color: var(--c-primary); }
 .capability-title-item { padding: .7rem 0; outline: none; }
 .capability-title-item > span { align-self: flex-start; padding-top: .35rem; }
 .capability-title-copy { min-width: 0; }
@@ -695,15 +695,15 @@ html.light .technology-bubble-logo { filter: none; }
 .capability-image-frame {
   position: relative;
   display: block;
-  min-height: 24rem;
+  /* Fixed height (not tied to the list column), so opening a description never resizes it. */
+  height: 24rem;
+  align-self: start;
   overflow: hidden;
   border: 1px solid rgba(142,169,204,.2);
   border-radius: 1.15rem;
   background: rgba(17,29,45,.8);
   box-shadow: 0 24px 55px -38px rgba(0,0,0,.7);
 }
-.capability-image-frame > img { transition: transform .75s cubic-bezier(.16,1,.3,1); }
-.capability-image-frame:hover > img { transform: scale(1.025); }
 .capability-image-shade {
   position: absolute;
   inset: 0;
@@ -725,7 +725,7 @@ html.light .capability-title-item:first-child { border-color: rgba(70,98,140,.15
 html.light .capability-title-item > span { color: #527db3; }
 html.light .capability-image-frame { border-color: rgba(70,98,140,.2); box-shadow: 0 24px 55px -38px rgba(36,63,103,.35); }
 @media (min-width: 1024px) {
-  .capability-image-frame { min-height: 39rem; }
+  .capability-image-frame { height: 39rem; position: sticky; top: 6rem; }
 }
 html.light .technology-logo-source-invert { filter: none; }
 
