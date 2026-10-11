@@ -1,7 +1,13 @@
+# CI/CD for spezartech.com
+# - Pull requests into main: build only (catches broken builds before they merge).
+# - Pushes to main (and manual runs): build, then publish the static export to GitHub Pages.
+# One-time repo setup and the SSL / HTTPS-only steps are in docs/DEPLOYMENT.md.
 name: Deploy to GitHub Pages
 
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
@@ -10,8 +16,9 @@ permissions:
   pages: write
   id-token: write
 
+# Only one deployment at a time; a newer push cancels an older in-progress run.
 concurrency:
-  group: pages
+  group: pages-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -19,17 +26,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: npm
+
       - run: npm ci
+
+      # Restores the Next.js build cache between runs for faster builds.
+      - uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-${{ hashFiles('app/**', 'components/**', 'data/**', 'hooks/**') }}
+          restore-keys: nextjs-${{ runner.os }}-${{ hashFiles('package-lock.json') }}-
+
+      # `next build` also runs lint and type checks; output: "export" writes the site to ./out
       - run: npm run build
+        env:
+          NEXT_TELEMETRY_DISABLED: 1
+
+      # Fail early if the custom-domain file is missing, otherwise Pages would drop spezartech.com.
+      - name: Check export
+        run: |
+          test -f out/index.html || { echo "out/index.html missing"; exit 1; }
+          test -f out/contact/index.html || { echo "out/contact/index.html missing"; exit 1; }
+          grep -qx "spezartech.com" out/CNAME || { echo "out/CNAME must contain spezartech.com"; exit 1; }
+          touch out/.nojekyll
+
+      - uses: actions/configure-pages@v5
+        if: github.event_name != 'pull_request'
+
       - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
         with:
           path: out
 
   deploy:
+    if: github.event_name != 'pull_request'
     needs: build
     runs-on: ubuntu-latest
     environment:

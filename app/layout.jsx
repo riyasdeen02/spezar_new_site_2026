@@ -63,6 +63,11 @@ export const viewport = {
   colorScheme: "dark",
 };
 
+// Fallback HTTPS-only redirect. The real redirects happen at the edge (GitHub Pages "Enforce HTTPS"
+// and Cloudflare "Always Use HTTPS", see docs/DEPLOYMENT.md); this only catches a plain-http visit that
+// slips through, and never runs on localhost.
+const httpsRedirect = `(function(l){if(l.protocol==="http:"&&!/^(localhost|127\\.0\\.0\\.1|\\[::1\\])$/.test(l.hostname)){l.replace("https://"+l.host+l.pathname+l.search+l.hash)}})(window.location);`;
+
 export default function RootLayout({ children }) {
   return (
     <html
@@ -70,6 +75,7 @@ export default function RootLayout({ children }) {
       className={`dark ${spaceGrotesk.variable} ${geist.variable} ${jetBrainsMono.variable}`}
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: httpsRedirect }} />
         <link
           rel="stylesheet"
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"

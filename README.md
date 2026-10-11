@@ -71,3 +71,10 @@ tailwind.config.js
 
 Editing site copy? Most of it lives in `data/content.js`.
 ```
+
+## Deployment
+
+Pushes to `main` build the static export and publish it to GitHub Pages at **https://spezartech.com**
+(`.github/workflows/deploy.yml`; pull requests are build-checked only). One-time GitHub and Cloudflare
+setup, SSL certificate steps and the HTTPS-only redirect are documented in
+[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
