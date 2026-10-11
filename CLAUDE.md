@@ -5,6 +5,7 @@ Next.js 15 (App Router) + React 19 + Tailwind CSS 3. See README.md for the archi
 
 ## Git workflow
 - Repo: https://github.com/riyasdeen02/spezar_new_site_2026 (private). Branch: `main`.
+- Before starting work, `git pull origin main` (the user may have edited on the GitHub website).
 - After every completed change, commit it with a short descriptive message and `git push origin main`.
 - A push to `main` runs `.github/workflows/deploy.yml`, which rebuilds and publishes the live site,
   so run `npm run build` first for anything that could break the build.
