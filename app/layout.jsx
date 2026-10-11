@@ -63,6 +63,19 @@ export const viewport = {
   colorScheme: "dark",
 };
 
+// Material Symbols is ~3.9 MB with every icon and style; asking Google for just the icons the site
+// uses (one default style) cuts it to a few KB. ADD ANY NEW <Icon name="..."> HERE, or it shows as text.
+// Google requires the list in alphabetical order.
+const iconNames = [
+  "accessibility_new", "agriculture", "arrow_forward", "arrow_upward", "bolt", "build", "calendar_today",
+  "call", "check_circle", "close", "cloud_sync", "dark_mode", "developer_board", "devices_other",
+  "expand_more", "factory", "format_quote", "groups", "hub", "light_mode", "lightbulb", "mail",
+  "medical_services", "memory", "menu", "oil_barrel", "precision_manufacturing", "psychology", "public",
+  "rocket_launch", "satellite_alt", "schema", "smart_toy", "sync", "terminal", "tune", "verified",
+  "view_in_ar", "workspace_premium",
+];
+const iconFontUrl = `https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=${[...iconNames].sort().join(",")}&display=block`;
+
 // Fallback HTTPS-only redirect. The real redirects happen at the edge (GitHub Pages "Enforce HTTPS"
 // and Cloudflare "Always Use HTTPS", see docs/DEPLOYMENT.md); this only catches a plain-http visit that
 // slips through, and never runs on localhost.
@@ -76,10 +89,9 @@ export default function RootLayout({ children }) {
     >
       <head>
         <script dangerouslySetInnerHTML={{ __html: httpsRedirect }} />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="stylesheet" href={iconFontUrl} />
       </head>
       <body className="bg-background font-body-md text-on-surface antialiased selection:bg-primary-container selection:text-on-primary-container min-h-screen flex flex-col relative overflow-x-hidden">
         {children}

@@ -44,6 +44,13 @@ Next.js 15 (App Router) + React 19 + Tailwind CSS 3. See README.md for the archi
 - Don't add API routes, server actions or middleware; they can't run on GitHub Pages.
 - If `npm run build` fails with "Cannot find module for page: /_document", delete `.next` and rebuild.
 
+- **Images:** the static export can't resize images, so pages use WebP copies made by
+  `npm run optimize-images` (`scripts/optimize-images.mjs`). When adding or replacing an image, add it
+  to that script, run it, and import the `.webp`. Originals stay as masters.
+- **Icons:** the Material Symbols font is subset to the names in `iconNames` (`app/layout.jsx`).
+  Add any new `<Icon name="...">` there, or it renders as plain text.
+- **Paths:** root-relative asset paths and internal links go through `withBase()` (`lib/basePath.js`).
+
 ## Known issues
 - **Contact form:** `handleSubmit` in `components/sections/Contact.jsx` isn't wired to a backend yet.
 
