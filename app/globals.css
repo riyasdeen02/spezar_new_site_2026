@@ -1,4 +1,4 @@
-﻿@tailwind base;
+@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -663,7 +663,6 @@ html.light .technology-bubble-logo { filter: none; }
   color: var(--c-on-surface);
   font: 500 clamp(1.05rem, 1.25vw, 1.25rem)/1.25 var(--font-geist), sans-serif;
   letter-spacing: -.015em;
-  transition: color .2s ease;
 }
 .capability-title-item:hover h3,
 .capability-title-item:focus-visible h3 { color: var(--c-primary); }
@@ -692,38 +691,44 @@ html.light .technology-bubble-logo { filter: none; }
     opacity: 1;
   }
 }
+/* Borderless stage for the 3D exploded view: the device floats on the section background.
+   Fixed height (not tied to the list column), so opening a description never resizes it. */
 .capability-image-frame {
   position: relative;
   display: block;
-  /* Fixed height (not tied to the list column), so opening a description never resizes it. */
   height: 24rem;
   align-self: start;
   overflow: hidden;
-  border: 1px solid rgba(142,169,204,.2);
   border-radius: 1.15rem;
-  background: rgba(17,29,45,.8);
-  box-shadow: 0 24px 55px -38px rgba(0,0,0,.7);
 }
-.capability-image-shade {
+/* 3D exploded view (three.js). Soft blue glow under the device; the poster image shows until the
+   first frame, and stays if WebGL isn't available. */
+.capability-scene {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(5,12,22,0) 50%, rgba(5,12,22,.56));
-  pointer-events: none;
+  cursor: grab;
+  touch-action: pan-y;
+  background: radial-gradient(ellipse at 50% 58%, rgba(63,116,201,.26), transparent 60%);
 }
-.capability-image-frame figcaption {
+.capability-scene:active { cursor: grabbing; }
+.capability-scene-canvas { position: absolute; inset: 0; width: 100% !important; height: 100% !important; display: block; opacity: 0; transition: opacity .6s ease; }
+.capability-scene.is-ready .capability-scene-canvas { opacity: 1; }
+.capability-scene-hint {
   position: absolute;
-  right: 1.25rem;
-  bottom: 1.15rem;
-  left: 1.25rem;
-  color: #f4f8ff;
-  font: 500 .7rem/1.2 var(--font-jetbrains-mono), monospace;
-  letter-spacing: .1em;
-  text-transform: uppercase;
+  right: 1rem;
+  bottom: .9rem;
+  padding: .3rem .65rem;
+  border: 1px solid rgba(186,214,255,.22);
+  border-radius: 999px;
+  background: rgba(9,19,33,.55);
+  color: rgba(214,228,248,.8);
+  font: 500 .75rem/1 var(--font-geist), sans-serif;
+  pointer-events: none;
+  backdrop-filter: blur(6px);
 }
 html.light .capability-title-item { border-color: rgba(70,98,140,.15); }
 html.light .capability-title-item:first-child { border-color: rgba(70,98,140,.15); }
 html.light .capability-title-item > span { color: #527db3; }
-html.light .capability-image-frame { border-color: rgba(70,98,140,.2); box-shadow: 0 24px 55px -38px rgba(36,63,103,.35); }
 @media (min-width: 1024px) {
   .capability-image-frame { height: 39rem; }
 }
@@ -1137,10 +1142,6 @@ html.light .industry-mosaic-card .spotlight-card-image {
   filter: saturate(1.04) brightness(1.08);
 }
 html.light .industry-mosaic-card:hover .spotlight-card-image { opacity: 1; }
-html.light .capability-image-frame > img { filter: brightness(1.06) saturate(.94); }
-html.light .capability-image-shade {
-  background: linear-gradient(180deg, rgba(5,12,22,0) 45%, rgba(5,12,22,.48));
-}
 html.light .hero-image-chip .hero-image-shade {
   background: linear-gradient(to top, rgba(9,7,17,.58), transparent 78%);
 }

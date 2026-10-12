@@ -1,7 +1,6 @@
-import Image from "next/image";
 import SectionHeading from "@/components/ui/SectionHeading";
+import CapabilitiesScene from "@/components/sections/CapabilitiesScene";
 import { capabilities } from "@/data/content";
-import benchImage from "@/media/capabilities-bench.webp";
 
 export default function Capabilities() {
   return (
@@ -32,15 +31,7 @@ export default function Capabilities() {
         </div>
 
         <figure className="capability-image-frame reveal lg:col-span-7">
-          <Image
-            src={benchImage}
-            alt="A connected device mid-assembly on an engineering workbench, with its CAD model on screen and an oscilloscope behind"
-            fill
-            sizes="(max-width: 1024px) 100vw, 58vw"
-            className="object-cover object-[55%_62%]"
-            priority={false}
-          />
-          <div className="capability-image-shade" aria-hidden="true" />
+          <CapabilitiesScene />
         </figure>
       </div>
     </section>
