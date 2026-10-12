@@ -66,13 +66,13 @@ function slab(shape, depth, bevel = 0, segments = 16) {
 // Controller PCB: dark blue soldermask, gold traces and pads, silkscreen.
 function makePcbTexture(renderer) {
   const c = document.createElement("canvas");
-  // drawn at 2x for crisp traces and silkscreen up close
+  // drawn at 1.5x for crisp traces and silkscreen without a huge texture
   const LW = 1024;
   const LH = Math.round((1024 * PCB_D) / PCB_W);
-  c.width = LW * 2;
-  c.height = LH * 2;
+  c.width = Math.round(LW * 1.5);
+  c.height = Math.round(LH * 1.5);
   const g = c.getContext("2d");
-  g.scale(2, 2);
+  g.scale(1.5, 1.5);
   const u = LW / PCB_W; // px per unit
   const P = (x, z) => [(x + PCB_W / 2) * u, (z + PCB_D / 2) * u];
 
@@ -176,7 +176,7 @@ function makeSurfaceMap(kind, size = 1024) {
   g.fillStyle = "rgb(128,128,128)";
   g.fillRect(0, 0, size, size);
   if (kind === "brushed") {
-    for (let i = 0; i < 9000; i++) {
+    for (let i = 0; i < 3200; i++) {
       const y = rnd() * size;
       const len = 80 + rnd() * size * 0.9;
       const x = rnd() * size - len * 0.2;
@@ -260,12 +260,12 @@ const shadowed = (m) => {
 };
 
 function buildECU(renderer) {
-  const brushed = makeSurfaceMap("brushed");
-  brushed.repeat.set(1.5, 1.5);
-  const blasted = makeSurfaceMap("blasted", 512);
-  blasted.repeat.set(4, 4);
-  const grain = makeSurfaceMap("plastic", 512);
-  grain.repeat.set(3, 3);
+  const brushed = makeSurfaceMap("brushed", 512);
+  brushed.repeat.set(2.5, 2.5);
+  const blasted = makeSurfaceMap("blasted", 256);
+  blasted.repeat.set(7, 7);
+  const grain = makeSurfaceMap("plastic", 256);
+  grain.repeat.set(5, 5);
   // machined aluminium: brushed streaks drive roughness and a faint bump
   const alu = new THREE.MeshPhysicalMaterial({ color: 0xbfc4cb, metalness: 1, roughness: 0.34, roughnessMap: brushed, bumpMap: brushed, bumpScale: 0.35, anisotropy: 0.6, clearcoat: 0.1, clearcoatRoughness: 0.4 });
   const aluBlast = new THREE.MeshStandardMaterial({ color: 0xa9aeb5, metalness: 1, roughness: 0.62, roughnessMap: blasted, bumpMap: blasted, bumpScale: 0.25 });
@@ -481,7 +481,7 @@ export default function CapabilitiesExploded() {
     } catch {
       return undefined;
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // sharper than 1.5x is not visible here, but costs a lot
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     // Neutral tone mapping keeps metals and colours true, like a studio product photo.
     renderer.toneMapping = THREE.NeutralToneMapping;
@@ -500,7 +500,7 @@ export default function CapabilitiesExploded() {
     const key = new THREE.DirectionalLight(0xfff3e2, 1.35);
     key.position.set(4, 8, 5);
     key.castShadow = true;
-    key.shadow.mapSize.set(2048, 2048);
+    key.shadow.mapSize.set(1024, 1024);
     key.shadow.camera.left = key.shadow.camera.bottom = -4;
     key.shadow.camera.right = key.shadow.camera.top = 4;
     key.shadow.camera.near = 1;
@@ -622,10 +622,17 @@ export default function CapabilitiesExploded() {
       onScreen = entry.isIntersecting;
       setRunning();
     }, { threshold: 0.05 });
-    io.observe(host);
+    // Compile all shaders up front (off the main animation path) so the first frames don't stutter.
+    let disposed = false;
+    const startWatching = () => {
+      if (!disposed) io.observe(host);
+    };
+    if (renderer.compileAsync) renderer.compileAsync(scene, camera).then(startWatching, startWatching);
+    else startWatching();
     document.addEventListener("visibilitychange", setRunning);
 
     return () => {
+      disposed = true;
       io.disconnect();
       ro.disconnect();
       document.removeEventListener("visibilitychange", setRunning);
