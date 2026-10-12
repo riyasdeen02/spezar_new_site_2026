@@ -5,13 +5,13 @@ import sharp from "sharp";
 import { statSync } from "node:fs";
 import { dirname, join, basename, extname } from "node:path";
 
-// [source, max width in px (about 2x the largest size it's shown at), quality]
+// [source, max width in px (about 2x the largest size it's shown at), quality, optional crop {left, top, width, height}]
 const jobs = [
   // Photos
   ["media/IMG_2149.jpg", 1200, 78],
   ["media/capabilities-bench.jpg", 1600, 80],
   ["media/contact.png", 1200, 78],
-  ["media/whatwedo.png", 1400, 78],
+  ["media/whatwedo.png", 1400, 78, { left: 34, top: 34, width: 1094, height: 724 }], // trims the baked-in glow border
   ["media/tnsi.jpg", 900, 78],
   ["media/isc.jpg", 900, 78],
   ...["agri", "assistivetech", "consumeriot", "energy", "industrialsys", "medtech", "oilgas", "remotesol"].map(
@@ -32,10 +32,11 @@ const kb = (bytes) => `${Math.round(bytes / 1024)} KB`;
 let before = 0;
 let after = 0;
 
-for (const [src, width, quality] of jobs) {
+for (const [src, width, quality, crop] of jobs) {
   const out = join(dirname(src), `${basename(src, extname(src))}.webp`);
-  const info = await sharp(src)
-    .rotate() // respect camera orientation
+  let img = sharp(src).rotate(); // respect camera orientation
+  if (crop) img = img.extract(crop);
+  const info = await img
     .resize({ width, withoutEnlargement: true })
     .webp({ quality, effort: 6, alphaQuality: 100 })
     .toFile(out);

@@ -25,12 +25,8 @@ export default function Process() {
               alt="Product engineer working on a 3D mechanical design at a workstation"
               fill
               sizes="(max-width: 1024px) 100vw, 58vw"
-              className="object-cover"
+              className="object-cover object-[50%_45%]"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-[#080b12]/85 via-[#080b12]/30 to-transparent" />
-            <div className="absolute bottom-5 left-5 sm:bottom-7 sm:left-7 max-w-sm">
-              <p className="text-lg sm:text-xl font-semibold text-white">Ideas become tested hardware, one stage at a time.</p>
-            </div>
           </div>
         </div>
 
